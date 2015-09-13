@@ -1,8 +1,38 @@
 <!doctype html>
 <head>
-	<title></title>
+	<title>DatfightJS</title>
+	<meta charset="utf-8">
+	<style>
+	#pistolet, #fusilAssaut, #fusilPompe, #bazooka, #mur{
+		display: none;
+	}
+	#gauche, #haut, #droite, #bas{
+		height: 30px;
+		width: 30px;
+	}
+	</style>
 </head>
 <body>
-	<canvas id="canvas"></canvas>
+	<h1>DatfightJS</h1>
+
+	<p>Contrôles :<br/>
+		<img src="flecheGauche.jpg" alt="" id="gauche">
+		<img src="flecheHaut.jpg" alt="" id="haut">
+		<img src="flecheDroite.jpg" alt="" id="droite">
+		<img src="flecheBas.jpg" alt="" id="bas">
+	</p>
+
+	<canvas id="jeu"></canvas>
+	<p id="tour"></p>
+	<p id="joueur1"></p>
+	<p id="joueur2"></p>
+
+	<img src="pistolet.png" id="pistolet">
+	<img src="fusilAssaut.jpg" id="fusilAssaut">
+	<img src="fusilPompe.jpg" id="fusilPompe">
+	<img src="bazooka.png" id="bazooka">
+	<img src="mur.png" id="mur">
+
+	<script src="declaration.js"></script>
 	<script src="main.js"></script>
 	<body>
