@@ -13,7 +13,6 @@ canvasJeu.width = "600" ;
 canvasJeu.height = canvasJeu.width;
 var taillePlateau = 10;
 var tailleCase = canvasJeu.width/taillePlateau;
-var nbMur = 5;
 var timer;
 var tourDe="";
 var mouvement = [0,0];
@@ -36,11 +35,11 @@ function play(qui){
 	}
 }
 
-
+// Complet
 function Plateau (taillePlateau , tailleCase) {
 
 	this.taille = taillePlateau;
-	this.couleur = "blue";
+	this.couleur = "#4C4C4C";
 	this.murs = [
 	[Math.floor( Math.random()*taillePlateau + 1 ),Math.floor( Math.random()*taillePlateau + 1 )]
 	,[Math.floor( Math.random()*taillePlateau + 1 ),Math.floor( Math.random()*taillePlateau + 1 )]
@@ -51,19 +50,14 @@ function Plateau (taillePlateau , tailleCase) {
 	this.construire = function(){
 
 		context.fillStyle = this.couleur;
+		context.fillRect( 0, 0 , tailleCase * taillePlateau , tailleCase * taillePlateau );
 
-		for ( var i = 0 ; i < taillePlateau ; i++ ){
-			
-			for ( var j = 0 ; j < taillePlateau ; j++){
-
-				context.fillRect( j * tailleCase , i * tailleCase , tailleCase , tailleCase );
-
-				context.drawImage( imageMur , j * tailleCase , i * tailleCase , tailleCase , tailleCase );
-				this.murs.push( [j,i] );
-				nbMur -= 1 ;
-
-				
+		for ( var i = 0 ; i < this.murs.length ; i++ ){
+			while ( (this.murs[i][0] == player1.x && this.murs[i][1] == player1.y) || (this.murs[i][0] == player2.x  && this.murs[i][1] == player2.y) || (this.murs[i][0] == pistolet.x  && this.murs[i][1] == pistolet.y) || (this.murs[i][0] == fusilAssaut.x  && this.murs[i][1] == fusilAssaut.y) || (this.murs[i][0] == fusilPompe.x  && this.murs[i][1] == fusilPompe.y) || (this.murs[i][0] == bazooka.x  && this.murs[i][1] == bazooka.y) ){
+				this.murs[i][0] = Math.floor( Math.random()* taillePlateau);
+				this.murs[i][1] = Math.floor( Math.random()* taillePlateau);
 			}
+			context.drawImage( imageMur , this.murs[i][0] * tailleCase , this.murs[i][1] * tailleCase , tailleCase , tailleCase );
 		}
 
 		player1.dessiner();
@@ -90,7 +84,7 @@ function Plateau (taillePlateau , tailleCase) {
 	};
 }
 var monPlateau = new Plateau( taillePlateau , tailleCase );
-
+// Complet
 function Arme(nom,img,puissance,x,y) {
 
 	this.nom=nom;
@@ -119,16 +113,64 @@ function Player(id,nom,x,y,arme,sante,couleur){
 	this.nom=nom;
 	this.x=x;
 	this.y=y;
-	this.xPrecedent=x;
-	this.yPrecedent=y;
 	this.arme=arme;
 	this.sante=sante;
 	this.couleur=couleur;
 	this.limiteMouvements=3;
-	//BOF
+	this.verifierCollision = function(code){
+		var mur;
+		var p;
+		switch(code){
+			case 37:
+			for ( p=0 ; p<monPlateau.murs.length ; p++ ){
+
+				if( this.x - 1 == monPlateau.murs[p][0] && this.y == monPlateau.murs[p][1] ){
+					mur = 1 ;
+				}
+			}
+			break;
+
+			case 38:
+			for ( p=0 ; p<monPlateau.murs.length ; p++ ){
+
+				if( this.y - 1 == monPlateau.murs[p][1] && this.x == monPlateau.murs[p][0] ){
+					mur = 1 ;
+				}
+
+			}
+			break;
+
+			case 39:
+			for ( p=0 ; p<monPlateau.murs.length ; p++ ){
+
+				if( this.x + 1 == monPlateau.murs[p][0] && this.y == monPlateau.murs[p][1] ){
+					mur = 1 ;
+				}
+
+			}
+			break;
+
+			case 40:
+			for ( p=0 ; p<monPlateau.murs.length ; p++ ){
+
+				if( this.y + 1 == monPlateau.murs[p][1] && this.x == monPlateau.murs[p][0] ){
+					mur = 1 ;
+				}
+
+			}
+			break;
+		}
+		if ( mur == 1 ) {
+			mur = undefined;
+			return true;
+		}else{
+			mur = undefined ;
+			return false;
+		}
+	};
 	this.deplacer = function () {
 		if ( key[37] ){
-			if ( this.x > 0 ){
+			if ( this.x > 0 && !this.verifierCollision(37) ){
 				mouvement = [-1,0];
 
 			} else {
@@ -139,7 +181,7 @@ function Player(id,nom,x,y,arme,sante,couleur){
 			this.limiteMouvements -= 1 ;
 		}
 		else if ( key[38] ){
-			if ( this.y > 0 ){
+			if ( this.y > 0 && !this.verifierCollision(38) ){
 				mouvement = [0,-1];
 			} else {
 				mouvement = [0,0];
@@ -149,7 +191,7 @@ function Player(id,nom,x,y,arme,sante,couleur){
 			this.limiteMouvements -= 1 ;
 		}
 		else if ( key[39] ){
-			if ( this.x < taillePlateau - 1 ){
+			if ( this.x < taillePlateau - 1 && !this.verifierCollision(39) ){
 				mouvement = [1,0];
 			} else {
 				mouvement = [0,0];
@@ -159,7 +201,7 @@ function Player(id,nom,x,y,arme,sante,couleur){
 			this.limiteMouvements -= 1 ;
 		}
 		else if ( key[40] ){
-			if ( this.y < taillePlateau - 1 ){
+			if ( this.y < taillePlateau - 1 && !this.verifierCollision(40) ){
 				mouvement = [0,1];
 
 			} else {
@@ -173,7 +215,7 @@ function Player(id,nom,x,y,arme,sante,couleur){
 
 		this.x += mouvement[0];
 		this.y += mouvement[1];
-		afficherJoueur1.innerHTML=player1.x +" " + player1.y;
+		afficherJoueur1.innerHTML=player1.x +" " + player1.y ;
 		afficherJoueur2.innerHTML=player2.x +" " + player2.y;
 		key[38] = false;
 		key[39] = false;
@@ -189,10 +231,7 @@ function Player(id,nom,x,y,arme,sante,couleur){
 		this.combattre();
 
 		changeTour(tourDe);
-
 	};
-
-
 	this.prendreArme = function(qui){
 		if (  this.x  == pistolet.x && this.y == pistolet.y ) {
 
@@ -264,9 +303,6 @@ function Player(id,nom,x,y,arme,sante,couleur){
 		}
 	};
 	this.dessiner = function(){
-
-		context.clearRect( this.x * tailleCase + 4 , this.y * tailleCase + 4 , tailleCase - 8 , tailleCase - 8 );
-
 		context.strokeStyle = this.couleur;
 		context.beginPath();
 		context.moveTo( this.x * tailleCase + 5 , this.y * tailleCase + tailleCase/2 );
@@ -292,7 +328,7 @@ var player2 = new Player(2 ,
 	"red")
 ;
 
-
+// Complet
 function changeTour(){
 	if ( player1.limiteMouvements<=0) {
 
@@ -312,7 +348,7 @@ function changeTour(){
 		alert("ce n'est le tour de personne!")
 	}
 }
-
+// Complet
 function verifGameOver(santeDuJoueur1,santeDuJoueur2){
 	if ( santeDuJoueur1 <= 0 || santeDuJoueur2 <= 0 ){
 
@@ -322,7 +358,7 @@ function verifGameOver(santeDuJoueur1,santeDuJoueur2){
 
 	}
 }
-
+// Complet
 function annoncerGagnant () {
 	if (player2.sante <=0) {
 		alert( player1.nom + " a gagné! Cliquez sur OK pour relancer une partie.");
