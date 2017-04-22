@@ -1,8 +1,15 @@
 <!doctype html>
+<html>
 <head>
 	<title>DatfightJS</title>
 	<meta charset="utf-8">
 	<style>
+	html{
+		background-color: #0C0C31;
+	}
+	h1 , p {
+		color: #E60933
+	}
 	#pistolet, #fusilAssaut, #fusilPompe, #bazooka, #mur{
 		display: none;
 	}
@@ -16,21 +23,31 @@
 	</style>
 </head>
 <body>
+	
+	<canvas id="jeu">Préférez un navigateur plus récent ou réactivez Javascript</canvas>
 	<h1>DatfightJS</h1>
-	<canvas id="jeu"></canvas>
 	<p>
-		Contrôles : Flèches du clavier
+		Se déplacer : Flèches du clavier<br/>
+		Passer son tour : Touche Entrée<br/>
+		Chaque joueur possède 3 déplacements par tour
 	</p>
 	<p id="tour"></p>
+	<p id="deplacements"></p>
 	<p id="joueur1"></p>
 	<p id="joueur2"></p>
 
 	<img src="pistolet.png" id="pistolet">
-	<img src="fusilAssaut.jpg" id="fusilAssaut">
-	<img src="fusilPompe.jpg" id="fusilPompe">
+	<img src="fusilAssaut.png" id="fusilAssaut">
+	<img src="fusilPompe.png" id="fusilPompe">
 	<img src="bazooka.png" id="bazooka">
 	<img src="mur.png" id="mur">
 
 	<script src="declaration.js"></script>
+	<script src="plateau.js"></script>
+	<script src="arme.js"></script>
+	<script src="player.js"></script>
 	<script src="main.js"></script>
+
 	<body>
+
+		</html>

@@ -1,18 +1,25 @@
 function initialize () {
 
-	if ( player1.x == player2.x && player1.y == player2.y) {
-		player1.x = 3 ;
-		player1.y = 3 ;
-		player2.x = 3 ;
-		player2.y = 3 ;
+	while ( player1.x == player2.x || player1.y == player2.y ) {
+		player1.x = Math.floor( Math.random()* taillePlateau ) ;
+		player1.y = Math.floor( Math.random()* taillePlateau ) ;
+		player2.x = Math.floor( Math.random()* taillePlateau ) ;
+		player2.y = Math.floor( Math.random()* taillePlateau ) ;
 	}
 
 	monPlateau.detruire();
 	monPlateau.construire();
 
 	
-	tourDe = prompt("Qui commence?");
-
+	tourDe = (function(){
+		var debut = Math.floor(Math.random()*2);
+		if (debut>=1){
+			return player1.nom;
+		} else {
+			return player2.nom;
+		}
+	})();
+	alert(tourDe);
 	timer = setInterval(function(){
 		
 		afficherJoueur1.innerHTML = player1.x +" " + player1.y;
