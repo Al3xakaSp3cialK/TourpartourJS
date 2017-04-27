@@ -1,6 +1,6 @@
 const should = require('chai').should() //eslint-disable-line
-const Player = require(`../Player`)
-const Weapon = require(`../Weapon`)
+const Player = require(`../src/Player`)
+const Weapon = require(`../src/Weapon`)
 
 describe(`Player`, function () {
   const player = new Player()

@@ -8,12 +8,13 @@
 const Weapon = require(`./Weapon`)
 /**
  * Board constructor to use with a Game
+ * @param canvas {Object} Target canvas
  * @param width {Number} Width of the board
  * @param boardSize {Number} Number of squares per line
  * @constructor
  */
 const Board  = function (width, boardSize) {
-  
+
   this.width      = width
   this.squareSize = width / boardSize
   this.boardSize  = boardSize

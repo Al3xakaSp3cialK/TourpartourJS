@@ -1,6 +1,6 @@
 const should = require('chai').should() //eslint-disable-line
 
-const Weapon = require(`../Weapon`)
+const Weapon = require(`../src/Weapon`)
 
 describe(`Weapon`, function () {
   it(`exists`, function () {

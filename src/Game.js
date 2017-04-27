@@ -12,12 +12,14 @@ const Weapon = require(`./Weapon`)
 
 /**
  * A game constructor
- * @param [options] {Object}
+ * @param renderer {Renderer} Render engine
  * @constructor
  */
-const Game = function (options = {}) {
+const Game = function (renderer) {
+  this.canvas = canvas
+  this.renderer = renderer
   if (!this.board) {
-    this.board = new Board(options.canvasWidth, options.boardSize)
+    this.board = new Board(canvas, options.canvasWidth, options.boardSize)
   }
   this.board.addWeapon(new Weapon(`Fusil d'assaut`, 32))
   this.board.addWeapon(new Weapon(`Fusil à pompe`, 35))
@@ -32,6 +34,7 @@ const Game = function (options = {}) {
 Game.prototype.initialize = function () {
   this.addPlayer(1, `1`)
   this.addPlayer(2, `2`)
+  this.renderer.render()
   return this
 }
 /**

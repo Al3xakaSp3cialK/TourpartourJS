@@ -1,7 +1,7 @@
 const should = require(`chai`).should() //eslint-disable-line
-const Board  = require(`../Board`)
-const Player = require(`../Player`)
-const Weapon = require(`../Weapon`)
+const Board  = require(`../src/Board`)
+const Player = require(`../src/Player`)
+const Weapon = require(`../src/Weapon`)
 
 describe(`board`, function () {
   const board = new Board(600, 10)

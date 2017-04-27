@@ -1,6 +1,6 @@
 const should = require(`chai`).should() //eslint-disable-line
-const Game   = require(`../Game`)
-const Player = require(`../Player`)
+const Game   = require(`../src/Game`)
+const Player = require(`../src/Player`)
 
 describe(`Game`, function () {
   it(`exists`, function () {
