@@ -1,4 +1,4 @@
-const should = require(`chai`).should()
+const should = require(`chai`).should() //eslint-disable-line
 const Board  = require(`../Board`)
 const Player = require(`../Player`)
 const Weapon = require(`../Weapon`)
