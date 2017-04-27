@@ -1,0 +1,27 @@
+{
+  "name": "tourpartourjs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "nyc mocha",
+    "doc": "jsdoc ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/N0bl3/TourpartourJS.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/N0bl3/TourpartourJS/issues"
+  },
+  "homepage": "https://github.com/N0bl3/TourpartourJS#readme",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.2.0",
+    "mocha-phantomjs": "^4.1.0",
+    "nyc": "^10.1.2",
+    "standard": "^9.0.2"
+  }
+}
